@@ -1,10 +1,10 @@
-// fetch and display news from newsapi.org
+
 const apiKey = "a40f200e2e54478284a2aacc19616e0a";
 const baseUrl = "https://newsapi.org/v2/top-headlines";
 let currentTopic = "general";
 let currentPage = 1;
 let allArticles = [];
-const articlesPerPage = 12;
+const articlesPerPage = 20;
 
 async function loadNews(topic = "general", page = 1) {
     const url = `${baseUrl}?category=${topic}&country=us&page=${page}&pageSize=${articlesPerPage}&apiKey=${apiKey}`;
@@ -17,7 +17,7 @@ async function loadNews(topic = "general", page = 1) {
 function showNews(articles, append = false) {
     const row = document.getElementById("cards-row");
     if (!append) {
-        row.innerHTML = ""; // clear on fresh load
+        row.innerHTML = "";
     }
     articles.forEach(article => {
         const col = document.createElement("div");
@@ -35,8 +35,6 @@ function showNews(articles, append = false) {
         row.appendChild(col);
     });
 }
-
-// wire up topic buttons
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".topic-btn").forEach(btn => {
         btn.addEventListener("click", async () => {
@@ -47,13 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // load more button
     document.getElementById("load-more-btn").addEventListener("click", async () => {
         currentPage++;
         const moreArticles = await loadNews(currentTopic, currentPage);
-        showNews(moreArticles, true); // append
+        showNews(moreArticles, true); 
     });
-
-    // initial load
+    
     loadNews(currentTopic, 1).then(articles => showNews(articles, false));
 });

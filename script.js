@@ -1,5 +1,4 @@
-
-const apiKey = "a40f200e2e54478284a2aacc19616e0a";
+const apiKey = process.env.API_KEY;
 const baseUrl = "https://newsapi.org/v2/top-headlines";
 let currentTopic = "general";
 let currentPage = 1;
